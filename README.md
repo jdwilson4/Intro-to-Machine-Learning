@@ -54,39 +54,41 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 **Introduction**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-|:--:|:--:|:--:|:--:|:--:|
+|:--|:--|:--|:--|:--|
 |[Introduction](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%201%20Introduction.pdf)| Ch.1, Section 2.1 ISL | [Homework 0](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Assignments/Homework0.pdf) | Wednesday, Jan 31st | |
 
 **Regression**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-|:--:|:--:|:--:|:--:|:--:|
+|:--|:--|:--|:--|:--|
 |[Components of Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%202%20Regression.pdf)| Section 2.2, Section 3.1 - 3.3, Section 5.1 of ISL | | | [Section 3.3 ISL](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf) |
-|[Shrinkage Methods](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%203%20Shrinkage%20Methods.pdf) | Section 6.2 of ISL | | | [Shrinkage Code]()|
-|[Principal Components Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%204%20Principal%20Components.pdf) | 6.3.1 of ISL; [A Tutorial on PCA](https://arxiv.org/pdf/1404.1100.pdf) | [Homework 1]() | [PCA Code]() |
+|[Shrinkage Methods](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%203%20Shrinkage%20Methods.pdf) | Section 6.2 of ISL | | | [Shrinkage Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Shrinkage.pdf)|
+|[Principal Components Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%204%20Principal%20Components.pdf) | 6.3.1 of ISL; [A Tutorial on PCA](https://arxiv.org/pdf/1404.1100.pdf) | [Homework 1]() | | [PCA Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Principal_Components.pdf) |
 
 
 **Classification**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-|:--:|:--:|:--:|:--:|:--:|
+|:--|:--|:--|:--|:--|
 
 **Tree-based Methods**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-|:--:|:--:|:--:|:--:|:--:|
+|:--|:--|:--|:--|:--|
 
 **Unsupervised Learning**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-|:--:|:--:|:--:|:--:|:--:|
+|:--|:--|:--|:--|:--|
 
 
 
 ### Case Studies
 | Case Study | Data | Date |
-|:---: | :---  | :---:  |
-
+|:--- | :---  | :---:  |
+|Regression | | |
+|Classification | | | 
+|Clustering | | | 
 
 ### Important Dates
 
