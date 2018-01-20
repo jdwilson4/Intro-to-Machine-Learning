@@ -8,7 +8,7 @@
 
 **Office Hours**: MW 1:30 - 3:00 in Harney 107B
 
-**Book**: [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani
+**Book**: [Intro to Statistical Learning (ISL)](http://www-bcf.usc.edu/~gareth/ISL/) by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani
 
 **Syllabus**: [Link](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Syllabus_ML_2018.pdf)
 
@@ -55,6 +55,7 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
 |:--:|:--:|:--:|:--:|:--:|
+|[Introduction](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%201%20Introduction.pdf)| Ch.1, Section 2.1 of ISL | [Homework 0](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Assignments/Homework0.pdf) | Wednesday, Jan 31st | |
 
 **Regression**
 
