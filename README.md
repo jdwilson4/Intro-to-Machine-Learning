@@ -9,7 +9,8 @@
 **Office Hours**: MW 1:30 - 3:00 in Harney 107B
 
 **Book**: [Intro to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani
-**Syllabus**: [Link]()
+
+**Syllabus**: [Link](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Syllabus_ML_2018.pdf)
 
 ## Course Learning Outcomes
 
@@ -53,48 +54,41 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 **Introduction**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-
+|:--:|:--:|:--:|:--:|:--:|
 
 **Regression**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-
+|:--:|:--:|:--:|:--:|:--:|
 
 **Classification**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-
+|:--:|:--:|:--:|:--:|:--:|
 
 **Tree-based Methods**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-
+|:--:|:--:|:--:|:--:|:--:|
 
 **Unsupervised Learning**
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
-
+|:--:|:--:|:--:|:--:|:--:|
 
 
 
 ### Case Studies
 | Case Study | Data | Date |
 |:---: | :---  | :---:  |
-|[I: Beer Review Analysis](https://github.com/jdwilson4/Intro-Data-Science-2017/blob/master/Code_Demonstrations/Case%20Study%201/Beer_Analysis.pdf) | [beerdata.RData](https://github.com/jdwilson4/Intro-Data-Science-2017/blob/master/Code_Demonstrations/Case%20Study%201/beer.data.RData) | Thursday, 2/16| 
-|[II: March Madness College Basketball](https://github.com/jdwilson4/Intro-Data-Science-2017/blob/master/Code_Demonstrations/Case%20Study%202/March_Madness.pdf)| [March_Madness.RData](https://github.com/jdwilson4/Intro-Data-Science-2017/blob/master/Data/March_Madness.RData)| Thursday, 3/2|
-
-
-### Final Project
-| Description | Due Date |
-|:---: | :---  |
-|[Project Signup](https://docs.google.com/spreadsheets/d/1pIAeZ1W5OENRyHbpfZgxKFzmGOtRNT2XkPkCQpjhzHI/edit?usp=sharing) | Thursday, 4/6 |
-|[Final Project Description](https://github.com/jdwilson4/Intro-Data-Science-2017/blob/master/Assignments/Final_Project.pdf) | Tuesday, 5/9 |
 
 
 ### Important Dates
 
-- Friday, January 27th - Last day to add the class
-- Friday, February 10th - Census date. Last day to withdraw with tuition reversal
-- Monday, March 13th - Friday, March 17th - Spring break! (**no class**)
-- Monday, April 10th - Last day to withdraw
-- Thursday, May 11th - Last day of class
+- Friday, January 26th - Last day to add the class
+- Friday, February 9th - Census date. Last day to withdraw with tuition reversal
+- Monday, February 19th - Presidents' Day (**no class**)
+- Monday, March 12th - Friday, March 16th - Spring break! (**no class**)
+- Friday, March 30th - Easter holiday (**no class**)
+- Wednesday, May 9th - Last day of class!
+- Monday, May 14th - Final exam (10:00 AM - 12:00 PM)
