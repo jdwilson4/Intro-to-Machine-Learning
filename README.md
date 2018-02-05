@@ -63,7 +63,7 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 |:--|:--|:--|:--|:--|
 |[Components of Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%202%20Regression.pdf)| Section 2.2, Section 3.1 - 3.3, Section 5.1 of ISL | | | [Section 3.3 ISL](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf) |
 |[Shrinkage Methods](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%203%20Shrinkage%20Methods.pdf) | Section 6.2 of ISL | | | [Shrinkage Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Shrinkage.pdf)|
-|[Principal Components Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%204%20Principal%20Components.pdf) | 6.3.1 of ISL; [A Tutorial on PCA](https://arxiv.org/pdf/1404.1100.pdf) | [Homework 1]() | | [PCA Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Principal_Components.pdf) |
+|[Principal Components Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%204%20Principal%20Components.pdf) | 6.3.1 of ISL; [A Tutorial on PCA](https://arxiv.org/pdf/1404.1100.pdf) | [Homework 1](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Assignments/Homework1.pdf) | Wednesday, Feb 14th| [PCA Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Principal_Components.pdf) |
 
 
 **Classification**
