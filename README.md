@@ -70,6 +70,11 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
 |:--|:--|:--|:--|:--|
+|[Components of Classification](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%205%20Classification.pdf)| Section 4.1 - 4.3 of ISL | | | |
+|[kNN and Bayes Classifiers](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%206%20Classification%20Methods%20I.pdf)| Section 2.2.3, Section 4.4 of ISL | | | |
+|[LDA, QDA, and Logistic Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%207%20Classification%20Methods%20II.pdf)| Section 4.3, Section 4.5 of ISL | | | |
+|Support Vector Machines | Section 9 of ISL | | | |
+
 
 **Tree-based Methods**
 
