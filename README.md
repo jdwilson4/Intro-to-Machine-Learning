@@ -89,11 +89,9 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 
 
 ### Case Studies
-| Case Study | Data | Date |
-|:--- | :---  | :---:  |
-|Regression | | |
-|Classification | | | 
-|Clustering | | | 
+| Case Study | Date |
+|:--- | :---  |
+|[Spam Detection and Naive Bayes](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Case%20Studies/Naive_Bayes_Case_Study.pdf)| February 23rd|
 
 ### Important Dates
 
