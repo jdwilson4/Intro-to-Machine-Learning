@@ -72,7 +72,7 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 |:--|:--|:--|:--|:--|
 |[Components of Classification](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%205%20Classification.pdf)| Section 4.1 - 4.3 of ISL | [Homework 2](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Assignments/Homework2.pdf)| Friday, March 2nd| |
 |[kNN and Bayes Classifiers](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%206%20Classification%20Methods%20I.pdf)| Section 2.2.3, Section 4.4 of ISL | | | |
-|[LDA, QDA, and Logistic Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%207%20Classification%20Methods%20II.pdf)| Section 4.3, Section 4.5 of ISL | | | [Classification Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Classfication.pdf)|
+|[LDA, QDA, and Logistic Regression](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%207%20Classification%20Methods%20II.pdf)| Section 4.3, Section 4.5 of ISL | [Homework 3](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Assignments/Homework3.pdf)| Monday, April 2nd| [Classification Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Classfication.pdf)|
 
 
 
