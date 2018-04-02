@@ -1,0 +1,263 @@
+---
+title: "Classification"
+author: "James D. Wilson"
+date: "March 23rd, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+In this presentation, we will investigate how to use the following classification methods:
+
+1) Logistic regression
+2) Linear Discriminant Analysis
+3) Quadratic Discriminant Analysis
+4) K-Nearest Neighbors
+
+Much of this lab is a replication of Section 4.6 in the "Introduction to Statistical Learning" textbook by James, Witten, Hastie, and Tibshirani (with my own commentary throughout).
+
+We'll be analyzing the Stock Market Data, *Smarket*, in the *ISLR* library. Let's download the data and look at a review.
+
+```{r, echo = TRUE, eval = TRUE}
+library(ISLR, quietly = TRUE)
+?Smarket
+```
+
+The goal will be to predict the *Direction* of the stock market using the percentage returns *Lag1* - *Lag5*, and the *Volume* of shares traded the previous day.
+
+Let's explore a bit of the data to get an idea of the relationships between the covariates and the *Direction*. We note that there is also a variable *Today* in the dataset which directly quantifies the percentatge return on the date in question. (This variable will perfectly capture the *Direction*)
+
+```{r, echo = TRUE}
+attach(Smarket)
+plot(Volume)
+pairs(Smarket[, -6], col = Smarket$Direction)
+```
+
+Logistic Regression
+=============================
+
+First, let's separate the data into a training and test set for further evaluation. In particular, we will train on the data for years before 2005 and then evaluate our predictor on the test set containing data from the year 2005.
+
+```{r, echo = TRUE}
+train <- (Year < 2005)
+Smarket.2005 <- Smarket[!train, ]
+Direction.2005 <- Direction[!train]
+```
+
+Recall here that logistic regression is a generalized linear model which models the mean of a binary random variables as a function of a linear model of covariates. To implement a logistic regression, we will use the *glm* function. Importantly, we will set *family = binomial* to distinguish that we are using a logistic regression of a binary variable $Y$. The *glm* function in R has the same characteristics and functional properties as the *lm* function. We'll see that below.
+
+```{r, echo = TRUE}
+glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data = Smarket, family = binomial, subset = train)
+summary(glm.fit)
+```
+
+Recall that the coefficients associated with each variable represent the log-odds change in probability of the *Direction* going *Up*. Also, the p-values associated with each coefficient *Pr(>|z|)* refers to the two-sided hypothesis test where the null hypothesis is that the coefficient is 0 (under a Normal distribution due to the MLE calculations.) 
+
+Note: we can use *coef()* to obtain just the coefficients of the fitted model as follows.
+
+```{r, echo = TRUE}
+coef(glm.fit)
+```
+
+The *predict* function can be used to predict that probability that the market will go up (*Direction* = *Up*) given the values of the predictors. Using *type = "response"* tells R to calculate $P(Y = 1 | X)$ as opposed to the logit() of this function.
+
+```{r, echo = TRUE}
+#First, let's look at predicted probabilities associated with the Training data
+glm.probs <- predict(glm.fit, type = "response")
+head(glm.probs)
+
+#Now, let's make predictions on the Training data and see how we did in terms of True Positive and False Positive. We'll predict "Up" for probabilities above 0.5.
+
+d1 <- length(glm.probs)
+glm.pred.train <- rep("Down", d1)
+glm.pred.train[glm.probs > 0.5] = "Up"
+
+#Let's look at our classification results on the training
+table(glm.pred.train, Direction[train])
+
+#Measuring the accuracy
+mean(glm.pred.train == Direction[train])
+
+#Now, let's predict on the testing data
+d2 <- length(Direction.2005)
+glm.pred.test <- rep("Down", d2)
+
+#Fit the model on the Test data
+glm.probs <- predict(glm.fit, Smarket.2005, type = "response")
+glm.pred.test[glm.probs > 0.5] = "Up"
+
+table(glm.pred.test, Direction.2005)
+
+#Accuracy on the Test Set
+mean(glm.pred.test == Direction.2005)
+```
+
+**Note**: Our fit only has an accuracy of 0.48! This is worse than random guessing! But, we should expect this as predicting the stock market is a difficult task. Moreover, from before we found that the coefficients were typically not significant in prediction the *Direction* of the following day. In fact, if we were able to do this well, we could make some serious money.
+
+Below, we run the logistic regression using only the variables *Lag1* and *Lag2*, since from previous exploration, this model was found to have the highest predictive accuracy.
+
+```{r, echo = TRUE}
+glm.fit <- glm(Direction ~ Lag1 + Lag2, data = Smarket, family = binomial, subset = train)
+
+summary(glm.fit)
+glm.probs <- predict(glm.fit, Smarket.2005, type = "response")
+glm.pred <- rep("Down", d2)
+glm.pred[glm.probs > 0.5] = "Up"
+table(glm.pred, Direction.2005)
+
+#Accuracy
+mean(glm.pred == Direction.2005)
+```
+
+Ok, at least we are doing a *little* better than random guessing.
+
+Linear Discriminant Analysis
+===========================================
+
+We will now implement Linear Discriminant Analysis on the *Smarket* data. To do so, we need to first install the *MASS* library in R.
+
+```{r, echo = TRUE}
+install.packages("MASS", repos ='http://cran.us.r-project.org')
+library(MASS, quietly = TRUE)
+```
+
+To implement LDA, we simply use the *lda()* function in a similar fashion as linear and logistic regression. Below, we fit an LDA to the training data in the years 2000 - 2004 and then classify the market *Direction* in the year 2005. 
+
+Here, we will only use the variables *Lag1* and *Lag2* since they had the best performance in logistic regression. In general, however, we'd want to check various combinations of the predictors to determine which gives the best classifier.
+
+First, we preview the class conditional distributions to see if the Normal assumptions are reasonable.
+
+```{r, echo = TRUE}
+par(mfrow = c(2,2))
+hist(Lag1[Direction == "Up"], n = 100, main = "Lag1 | Up", xlab = "")
+hist(Lag1[Direction == "Down"], n = 100, main = "Lag1 | Down", xlab = "")
+
+hist(Lag2[Direction == "Up"], n = 100, main = "Lag2 | Up", xlab = "")
+hist(Lag2[Direction == "Down"], n = 100, main = "Lag2 | Down", xlab = "")
+```
+
+The Normal assumptions seem reasonable. Of course, we could dig deeper to check these assumptions using your favorite test for normality. But, we don't worry about that in this case. 
+
+Now we perform LDA.
+```{r, echo = TRUE}
+#run LDA on the training data
+lda.fit <- lda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
+
+#look at a summary of the fit
+lda.fit
+
+```
+
+Above, the coefficients of the linear discriminants give the coefficients associated with each of the predictors that dictate the linear discriminants. In this situation, if the value
+
+$$-0.642*Lag1 - 0.514*Lag2$$
+
+is large, then the LDA classifier will predict a market increase. If this value is small, then it will predict a market decrease. 
+
+We can plot the discriminants on the training data
+
+```{r, echo = TRUE}
+plot(lda.fit)
+```
+
+Next, we predict the market value in 2005 using our LDA classification rule.
+
+```{r, echo = TRUE}
+#predict market Direction in 2005. 
+lda.pred <- predict(lda.fit, Smarket.2005)
+
+names(lda.pred)
+
+#Look at the confusion matrix to evaluate how the method performed
+lda.class <- lda.pred$class
+table(lda.class, Direction.2005)
+
+#calculate the accuracy
+mean(lda.class == Direction.2005)
+
+#the posterior probability that the market will decrease
+#let's look at the first 20 and compare with our guess
+lda.pred$posterior[1:20, 1]
+lda.class[1:20]
+```
+
+It's interesting to note that the greatest posterior probability of decrease in all of 2005 was 52.02%. This gives us an idea of how challenging it is to classify the market value.
+
+Quadratic Discriminant Analysis
+===========================================
+
+Running quadratic discriminant analysis (QDA) is analagous to LDA as implemented above. As a result, I will just run the analysis with little commentary as the functions are all the same as above. 
+
+```{r, echo = TRUE}
+#run QDA on the training data
+qda.fit <- qda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
+
+#look at summary of fit
+qda.fit
+
+```
+
+```{r, echo = TRUE}
+#predict the market Direction in 2005
+qda.class <- predict(qda.fit, Smarket.2005)$class
+
+#look at the confusion matrix
+table(qda.class, Direction.2005)
+
+#calculate the accuracy
+mean(qda.class == Direction.2005)
+```
+
+QDA has an accuracy of nearly 60% for the market direction in 2005. So far this is the best result, suggesting that a quadratic discriminant outperforms the linear discriminants calculated by LDA and logistic regression.
+
+K-Nearest Neighbors
+===========================================
+
+We will now implement the K-Nearest Neighbors algorithm on the *Smarket* data set and compare with the results of the methods above. To do this, we use the *knn()* function from the *class* library. Let's first install the *class* library.
+
+```{r, echo = TRUE}
+install.packages("class", repos ='http://cran.us.r-project.org')
+library(class, quietly = TRUE)
+
+?knn
+```
+
+The *knn()* function requires 4 different inputs as follows:
+
+1) *train* : a matrix containing the predictors for the training data
+2) *test* : a matrix containing the predictors for the test data
+3) *cl*: the labels (classes) of the training data
+4) *k*: the number of nearest neighbors you'd like to use
+
+We now prepare our data and run *knn* using *K = 1* and *K = 3* for demonstration. In practice, we would want to run *knn* across many values of *K* and choose the *K* that works best. This can be done via cross-validation using the *knn.cv()* function, but I don't do this below. The arguments for this function are exactly the same as those in the *knn* function.
+
+```{r, echo = TRUE}
+#prepare the data
+train.X <- cbind(Lag1, Lag2)[train, ]
+test.X <- cbind(Lag1, Lag2)[!train, ]
+train.Direction <- Direction[train]
+
+#run KNN with K = 1
+set.seed(1) #for reproducability for the randomly breaking of ties
+knn.pred <- knn(train.X, test.X, train.Direction, k = 1)
+
+#look at the confusion matrix
+table(knn.pred, Direction.2005)
+
+#calculate the accuracy
+mean(knn.pred == Direction.2005)
+```
+
+Using KNN with K = 1 is exactly the same as randomly guessing. So, we now repeat the above using K = 3.
+
+```{r, echo = TRUE}
+knn.pred <- knn(train.X, test.X, train.Direction, k = 3)
+
+#look at the confusion matrix
+table(knn.pred, Direction.2005)
+
+#calculate the accuracy
+mean(knn.pred == Direction.2005)
+```
+
+I invite you to consider repeating the above exercise using cross-validation to choose the best K on the training data. 

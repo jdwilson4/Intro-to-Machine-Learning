@@ -1,0 +1,239 @@
+---
+title: "Decision Trees"
+author: "James D. Wilson"
+date: "April 2nd, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+In this presentation, we will investigate how to use the following classification methods:
+
+1) Classification Trees
+2) Regression Trees
+3) Random Forests
+
+Much of this lab is a replication of Section 8.3 in the "Introduction to Statistical Learning" textbook by James, Witten, Hastie, and Tibshirani (with my own commentary throughout).
+
+Classification and Regression Trees rely on the package *tree*. Furthermore, we'll be using decision trees on several data sets in the *ISLR* package. We first install and load these packages.
+```{r, echo = TRUE}
+install.packages("tree", repos = "http://cran.us.r-project.org")
+install.packages("ISLR", repos = "http://cran.us.r-project.org")
+library(tree, quietly = TRUE)
+library(ISLR, quietly = TRUE)
+```
+
+###Classification Trees###
+
+We are first going to use classification trees to analyze the *Carseats* data in the *ISLR* package. We will focus on classifying the *Sales* of different car seats. Here, the *Sales* variable is continuous. As a result, we first binarize *Sales* and create a categorical variable which specifies which car seats had a *High* number of sales. 
+
+```{r, echo = TRUE}
+#look at the data
+?Carseats
+
+attach(Carseats)
+
+#Create a binary variable specifying whether or not the Sales of the carseat was High (> 8)
+
+High <- ifelse(Sales <= 8, "No", "Yes")
+
+#Merge the binary variable with the remaining data set
+Carseats <- data.frame(Carseats, High)
+```
+
+Now we use the *tree()* function to fit a classification tree in order to predict *High* using all variables except *Sales*. We then look at a summary of the fitted tree.
+
+```{r, echo = TRUE}
+tree.carseats <- tree(High ~.-Sales, Carseats)
+summary(tree.carseats)
+```
+
+We can now also plot the decision tree for visualization. Note that we have to add text to the tree using the *text()* function in R.
+
+```{r, echo = TRUE}
+plot(tree.carseats)
+text(tree.carseats, pretty = 0)
+
+#Look at the regions and breakdown of the High variable in the tree
+tree.carseats
+```
+
+Now we run this on a training set and leave out a test set for later validation.
+
+```{r, echo = TRUE}
+set.seed(2)
+train <- sample(1:nrow(Carseats), 200)
+Carseats.test <- Carseats[-train ,]
+High.test <- High[-train]
+tree.carseats <- tree(High ~.-Sales, Carseats, subset=train)
+
+#Look at predictons on the test set
+tree.pred <- predict(tree.carseats, Carseats.test, type = "class")
+
+#Evaluate misclassifications
+table(tree.pred, High.test)
+
+#Calculate the accuracy
+mean(tree.pred == High.test)
+```
+
+Next, we use cross validation to determine how the tree should be pruned using **weakest-link pruning*, or **cost complexity pruning**. Here, the parameter *k* corresponds to the $\alpha$ we referred to in class.
+
+```{r, echo = TRUE}
+set.seed(3)
+
+cv.carseats <- cv.tree(tree.carseats, FUN = prune.misclass)
+
+#look at the results
+cv.carseats
+```
+
+Above, *dev* corresponds to the cross-validation error in this instance. We see that the tree with 9 terminal nodes results in the lowest cross validation rate. We plot the error now as a function of *size* and *k*
+
+```{r, echo = TRUE}
+par(mfrow = c(1, 2))
+plot(cv.carseats$size, cv.carseats$dev, type = "b")
+plot(cv.carseats$k, cv.carseats$dev, type = "b")
+```
+
+We can now use the function *prune.misclass()* to prune the tree to the nine-node tree.
+
+```{r, echo = TRUE}
+prune.carseats <- prune.misclass(tree.carseats, best = 9)
+plot(prune.carseats)
+text(prune.carseats, pretty = 0)
+```
+
+Finally, we evaluate how well our pruned tree performed on the test set. 
+
+```{r, echo = TRUE}
+#Make predictions on the test set
+prune.pred <- predict(prune.carseats, Carseats.test, type = "class")
+
+#Look at confusion matrix
+table(prune.pred, High.test)
+
+#Calculate the accuracy
+mean(prune.pred == High.test)
+```
+
+
+###Regression Trees###
+
+Regression trees work the same way as classification trees and rely on the function *tree*. Below, we fit a regression tree using the *Boston* data from the *MASS* package. 
+
+```{r, echo = TRUE}
+install.packages("MASS", repos = "http://cran.us.r-project.org")
+library(MASS, quietly = TRUE)
+
+#Investigate the Boston data
+?Boston
+```
+
+Below we will now build, prune, and assess the fit of a regression tree following the same template we did above for classification trees. Here, we regress the median value of owner-occupied homes *medv* against the remaining predictors.
+
+```{r, echo = TRUE}
+#Randomly split the data into a training and test set
+set.seed(1)
+train <- sample(1:nrow(Boston), nrow(Boston)/2)
+
+#Fit a tree on the training data
+tree.boston <- tree(medv ~ ., data = Boston, subset = train)
+summary(tree.boston)
+
+#Visualize the tree
+plot(tree.boston)
+text(tree.boston, pretty = 0)
+```
+
+We perform pruning on this originally fit tree now below.
+
+```{r, echo = TRUE}
+cv.boston <- cv.tree(tree.boston)
+#Plot the cross-validation error against the size of the pruned tree
+plot(cv.boston$size, cv.boston$dev, type = "b")
+```
+
+It looks like the tree of size 7 has the lowest cross-validation error. So, we prune the tree to have 7 terminal nodes.
+
+```{r, echo = TRUE}
+prune.boston <- prune.tree(tree.boston, best = 7)
+plot(prune.boston)
+text(prune.boston, pretty = 0)
+```
+
+Now we assess the performance of the tree on the left-out test set.
+
+```{r, echo = TRUE}
+boston.test = Boston[-train, "medv"]
+boston.pred <- predict(tree.boston, newdata = Boston[-train, ])
+
+#Plot the predicted against the truth
+plot(boston.pred, boston.test)
+abline(0, 1)
+
+#Calculate the MSPE on the test set
+mean((boston.pred - boston.test)^2)
+```
+
+###Random Forests###
+In this section, we apply random forests to the *Boston* data using the *RandomForest* package in R. First, we install and load the needed library.
+
+```{r, ehco = TRUE}
+install.packages("randomForest", repos = "http://cran.us.r-project.org")
+library(randomForest, quietly = TRUE)
+```
+
+The primary function that we will use is the *randomForest()* function. This funciton follows the same syntax as the *tree()* function above; except, we will need to determine how many predictors to use for each tree. This argument is given by *mtry*. By default, the *randomForest()* function uses $m = p/3$ for regression trees and $m = \sqrt(p)$ for classification trees. Furthermore, the *ntree* argument specifies the number of trees to be generated. You should consider choosing the number of trees based on performance of the random forest. 
+
+An important feature of random forests is its ability to measure the *importance* of predictors using measurements of
+
+a) the reduction in MSPE
+b) the increase in node purity / response purity
+
+Below, we fit a random forest of regression trees on the *Boston* data using all 13 predictors and 500 trees (Note: this is in fact **bagging** since we are using all 13 predictors).
+
+```{r, echo = TRUE}
+set.seed(1)
+bag.boston <- randomForest(medv ~ ., data = Boston, subset = train, mtry = 13, importance = TRUE, ntree = 500)
+bag.boston 
+
+#Prediction on test set
+yhat.bag <- predict(bag.boston, newdata = Boston[-train,])
+
+#Measure MSPE
+mean((yhat.bag - boston.test)^2)
+```
+
+Now we fit a random forest using $\sqrt{13} \approx 4$ predictors. We then investigate its performance on the test set.
+
+```{r, echo = TRUE}
+set.seed(1)
+rf.boston <- randomForest(medv ~ ., data = Boston, subset = train, mtry = 4, importance = TRUE)
+#Prediction on test set
+yhat.rf <- predict(rf.boston, newdata = Boston[-train, ])
+
+#Measure MSPE
+mean((yhat.rf - boston.test)^2)
+
+```
+
+We now use the *importance()* function to get an idea of the importance of each predictor in the random forest. This function gives two statistics that are calculated on the out-of-bag samples:
+
+a) *IncMSE*: the average increase in MSPE when the given variable is not included in the model
+b) *IncNodePurity*: the average increase in node purity when there is a split on this variable in any decision tree. 
+
+So, variables with large values of each of these statistics can be deemed *important*.
+
+```{r, echo = TRUE}
+#Calculate the importance of each predictor
+importance(rf.boston)
+
+#Plot these importance measures
+varImpPlot(rf.boston)
+```
+
+From the above results, we see that the predictors *lstat* and *rm* are by far the most important variables.
+
+
+
