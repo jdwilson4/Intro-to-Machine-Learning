@@ -91,6 +91,7 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 
 
 **Intro to Neural Networks and Deep Learning**
+
 | Topic | Reading | Assignment | Due Date | In Class Code |
 |:--|:--|:--|:--|:--|
 
