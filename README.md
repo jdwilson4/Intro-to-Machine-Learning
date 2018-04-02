@@ -80,7 +80,8 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 
 | Topic | Reading | Assignment | Due Date | In Class Code |
 |:--|:--|:--|:--|:--|
-|[Trees, Bagging, and Random Forests](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%208%20Tree-Based%20Methods.pdf) | Sections 8.1 and 8.2 of ISL | | | |
+|[Trees, Bagging, and Random Forests](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%208%20Tree-Based%20Methods.pdf) | Sections 8.1 and 8.2 of ISL | | | [Ensemble Methods Code](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Code_Demonstrations/Decision_Trees.pdf)|
+|[Boosting](http://www-bcf.usc.edu/~gareth/ISL/ISLR%20First%20Printing.pdf) | Section 8.2 and 8.3 of ISL | | | |
 
 **Unsupervised Learning**
 
@@ -88,6 +89,10 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 |:--|:--|:--|:--|:--|
 |[k-Means and Hierarchical Clustering](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%209%20Unsupervised%20Learning.pdf)| Section 10.1 - 10.3 of ISL | | | |
 
+
+**Intro to Neural Networks and Deep Learning**
+| Topic | Reading | Assignment | Due Date | In Class Code |
+|:--|:--|:--|:--|:--|
 
 ### Case Studies
 | Case Study | Date |
