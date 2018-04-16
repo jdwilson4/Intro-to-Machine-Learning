@@ -99,7 +99,7 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 | Case Study | Date |
 |:--- | :---  |
 |[Spam Detection and Naive Bayes](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Case%20Studies/Naive_Bayes_Case_Study.pdf)| February 23rd|
-
+|[Ensemble Methods](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Case%20Studies/Ensemble_Methods_Case_Study.pdf)| April 1st |
 ### Important Dates
 
 - Friday, January 26th - Last day to add the class
