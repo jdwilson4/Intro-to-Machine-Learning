@@ -88,7 +88,7 @@ Overall, this course will be split into three main parts: (1) regression, (2) cl
 | Topic | Reading | Assignment | Due Date | In Class Code |
 |:--|:--|:--|:--|:--|
 |[k-Means and Hierarchical Clustering](https://github.com/jdwilson4/Intro-to-Machine-Learning/blob/master/Lectures/Lecture%209%20Unsupervised%20Learning.pdf)| Section 10.1 - 10.3 of ISL | | | |
-
+|[Graphs and Community Detection]()| | | | |
 
 **Intro to Neural Networks and Deep Learning**
 
